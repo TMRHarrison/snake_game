@@ -19,37 +19,43 @@ class TestPellet(unittest.TestCase):
         self.assertEqual(pellet.icon, "N")
 
 
+
+class TestCurses(unittest.TestCase):
+    """Test curses-related functions"""
+
+    def setUp(self):
+        """Initialize curses for each test in the category"""
+        curses.initscr()
+
+
     def test_draw(self):
         """Draw the pellet to a curses window"""
 
-        def temp_func(window: curses.window):
-            window.resize(5, 5)
-            window.clear()
+        window = curses.newwin(5, 5)
+        window.clear()
 
-            x_pos = 3
-            y_pos = 1
-            pellet = Pellet(x_pos, y_pos)
+        x_pos = 3
+        y_pos = 1
+        pellet = Pellet(x_pos, y_pos)
 
-            self.assertListEqual(
-                [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
-                [
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "]
-                ]
-            )
-            pellet.draw(window)
-            self.assertListEqual(
-                [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
-                [
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", "N", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "]
-                ]
-            )
-
-        curses.wrapper(temp_func)
+        self.assertListEqual(
+            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
+        pellet.draw(window)
+        self.assertListEqual(
+            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", "N", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )

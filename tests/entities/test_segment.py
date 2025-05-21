@@ -80,39 +80,44 @@ class TestSegment(unittest.TestCase):
         self.assertEqual(test_segment, Segment(10, 15))
 
 
+class TestCurses(unittest.TestCase):
+    """Test curses functions"""
+
+    def setUp(self):
+        """initialize curses screen before tests in this category"""
+        curses.initscr()
+
+
     def test_draw(self):
         """Draw the segment to a curses window"""
 
-        def temp_func(window: curses.window):
-            window.resize(5, 5)
-            window.clear()
+        window = curses.newwin(5, 5)
+        window.clear()
 
-            random.seed(1)
-            x_pos = 3
-            y_pos = 1
-            segment = Segment(x_pos, y_pos)
+        random.seed(1)
+        x_pos = 3
+        y_pos = 1
+        segment = Segment(x_pos, y_pos)
 
-            self.assertListEqual(
-                [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
-                [
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "]
-                ]
-            )
-            segment.draw(window)
+        self.assertListEqual(
+            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
+        segment.draw(window)
 
-            self.assertListEqual(
-                [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
-                [
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", "A", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "]
-                ]
-            )
-
-        curses.wrapper(temp_func)
+        self.assertListEqual(
+            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", "A", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )

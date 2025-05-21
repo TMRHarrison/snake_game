@@ -177,41 +177,6 @@ class TestPlayer(unittest.TestCase):
         )
 
 
-    def test_draw(self):
-        """Draw each segment of the snake"""
-
-        def temp_func(window: curses.window):
-            window.resize(5, 5)
-            window.clear()
-
-            random.seed(1)
-            player = Player(1, 1, 3)
-
-            self.assertListEqual(
-                [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
-                [
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "]
-                ]
-            )
-            player.draw(window)
-            self.assertListEqual(
-                [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
-                [
-                    [" ", " ", " ", " ", " "],
-                    [" ", "A", "G", "T", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "],
-                    [" ", " ", " ", " ", " "]
-                ]
-            )
-
-        curses.wrapper(temp_func)
-
-
     def test_space_occupied(self):
         """Check if the given position is occupied by any of the snake's
         segments
@@ -309,3 +274,43 @@ class TestPlayer(unittest.TestCase):
         # head has moved off a body segment
         player.move()
         self.assertFalse(player.check_body_hit())
+
+
+class TestCurses(unittest.TestCase):
+    """Test methods that use curses."""
+
+    def setUp(self):
+        """initialize curses for each test in this category"""
+        curses.initscr()
+
+
+    def test_draw(self):
+        """Draw each segment of the snake"""
+
+        window = curses.newwin(5, 5)
+        window.clear()
+
+        random.seed(1)
+        player = Player(1, 1, 3)
+
+        self.assertListEqual(
+            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
+        player.draw(window)
+        self.assertListEqual(
+            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", "A", "G", "T", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
