@@ -53,15 +53,14 @@ class State:
 
         self.done = False
 
+        # Render a frame before any inputs. Otherwise, delay mode won't render any frames
+        self._frame()
         while not self.done:
-            self._preframe()
-            self.draw()
-            self._postframe()
-
             self._scankeys()
             for key in self._keys_pressed:
                 self.key_pressed(key)
             self.update()
+            self._frame()
 
 
     def key_pressed(self, key: int):
@@ -121,6 +120,13 @@ class State:
         ch = self.window.getch()
         if ch != -1: # this sometimes shows up in special cases, e.g. resizing
             self._keys_pressed.append(ch)
+
+
+    def _frame(self):
+        """All the graphical updates"""
+        self._preframe()
+        self.draw()
+        self._postframe()
 
 
     def _preframe(self):

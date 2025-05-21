@@ -156,7 +156,7 @@ class Player:
         """
 
         head = self.head()
-        if head.x_pos == pellet.x_pos and head.y_pos == pellet.y_pos:
+        if head == pellet:
             self._new_segment()
             return True
 
@@ -205,6 +205,6 @@ class Player:
         """
         head = self.head()
         return any(
-            head.x_pos == segment.x_pos and head.y_pos == segment.y_pos
+            head == segment
             for segment in self.segments[1:]
         )
