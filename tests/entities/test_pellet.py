@@ -1,4 +1,4 @@
-""""""
+"""Pellet tests"""
 
 import unittest
 import curses
@@ -7,7 +7,7 @@ from entities.pellet import Pellet
 
 
 class TestPellet(unittest.TestCase):
-    """"""
+    """Test pellet methods"""
 
     def test_creation(self):
         """Make a pellet and ensure it has the correct attributes"""

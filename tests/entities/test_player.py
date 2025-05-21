@@ -1,4 +1,4 @@
-""""""
+"""Tests for player and facing enum"""
 
 from collections import deque
 import curses
@@ -34,10 +34,10 @@ class TestFacing(unittest.TestCase):
 
 
 class TestPlayer(unittest.TestCase):
-    """"""
+    """Test player methods"""
 
     def test_creation(self):
-        """"""
+        """Make a player object"""
         player = Player(3, 3, 3)
 
         self.assertEqual(
