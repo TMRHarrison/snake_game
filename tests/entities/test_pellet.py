@@ -4,6 +4,7 @@ import unittest
 import curses
 
 from entities.pellet import Pellet
+from tests import window_to_list
 
 
 class TestPellet(unittest.TestCase):
@@ -39,7 +40,7 @@ class TestCurses(unittest.TestCase):
         pellet = Pellet(x_pos, y_pos)
 
         self.assertListEqual(
-            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            window_to_list(window),
             [
                 [" ", " ", " ", " ", " "],
                 [" ", " ", " ", " ", " "],
@@ -50,7 +51,7 @@ class TestCurses(unittest.TestCase):
         )
         pellet.draw(window)
         self.assertListEqual(
-            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            window_to_list(window),
             [
                 [" ", " ", " ", " ", " "],
                 [" ", " ", " ", "N", " "],

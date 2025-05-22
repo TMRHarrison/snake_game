@@ -6,6 +6,7 @@ import unittest
 
 from entities.pellet import Pellet
 from entities.segment import Segment
+from tests import window_to_list
 
 
 class TestSegment(unittest.TestCase):
@@ -100,7 +101,7 @@ class TestCurses(unittest.TestCase):
         segment = Segment(x_pos, y_pos)
 
         self.assertListEqual(
-            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            window_to_list(window),
             [
                 [" ", " ", " ", " ", " "],
                 [" ", " ", " ", " ", " "],
@@ -112,7 +113,7 @@ class TestCurses(unittest.TestCase):
         segment.draw(window)
 
         self.assertListEqual(
-            [[chr(window.inch(y, x)) for x in range(0, 5)] for y in range(0, 5)],
+            window_to_list(window),
             [
                 [" ", " ", " ", " ", " "],
                 [" ", " ", " ", "A", " "],

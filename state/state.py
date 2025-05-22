@@ -67,6 +67,7 @@ class State:
         """Default function when keys are pressed. Press 'q' to quit."""
         if key == ord("q"):
             self.done = True
+            return
 
 
     def update(self):
