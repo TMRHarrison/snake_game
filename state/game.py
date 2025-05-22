@@ -65,7 +65,7 @@ class Game(State):
         if self.paused:
             return
 
-        elif key in [ord("a"), curses.KEY_LEFT]:
+        if key in [ord("a"), curses.KEY_LEFT]:
             self.player.add_facing_to_buffer(Facing.LEFT)
         elif key in [ord("d"), curses.KEY_RIGHT]:
             self.player.add_facing_to_buffer(Facing.RIGHT)
@@ -122,7 +122,7 @@ class Game(State):
         if self.paused:
             printf(
                 self.canvas,
-                f"~~PAUSED~~",
+                "~~PAUSED~~",
                 0,
                 (self.height - self.header) // 2,
                 self.width,

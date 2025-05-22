@@ -1,4 +1,4 @@
-""""""
+"""Segments of the player snake"""
 
 import curses
 import random
@@ -23,8 +23,7 @@ class Segment:
         """Equality operator. We only care about positions, icons are irrelevant."""
         if isinstance(other, (Segment, Pellet)):
             return self.x_pos == other.x_pos and self.y_pos == other.y_pos
-        else:
-            return super().__eq__(other)
+        return super().__eq__(other)
 
 
     def __repr__(self) -> str:

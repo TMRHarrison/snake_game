@@ -1,7 +1,7 @@
 """"""
 
-from collections import deque
 import curses
+import time
 import unittest
 
 from state.state import State
@@ -81,6 +81,17 @@ class TestState(unittest.TestCase):
         """Make sure the draw function renders to the window"""
 
         state = State(5, 5, 10, True)
+
+        self.assertListEqual(
+            window_to_list(state.window), #type: ignore
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
 
         state.draw()
         self.assertListEqual(
@@ -265,10 +276,99 @@ class TestState(unittest.TestCase):
     def test_frame(self):
         """clear, draw, present, wait"""
 
+        state = State(5, 5, 10, True)
+
+        state.window.addstr(1, 1, "abc")
+        self.assertListEqual(
+            window_to_list(state.window), #type: ignore
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", "a", "b", "c", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
+
+        start = time.time_ns()
+        state._frame()
+        self.assertListEqual(
+            window_to_list(state.window), #type: ignore
+            [ # the chr() are box-drawing characters
+                [chr(0x250C), chr(0x2500), chr(0x2500), chr(0x2500), chr(0x2510)],
+                [chr(0x2502), " ",         " ",         " ",         chr(0x2502)],
+                ["f",         "u",         "n",         "c",         "t"        ],
+                [chr(0x2502), " ",         " ",         " ",         chr(0x2502)],
+                [chr(0x2514), chr(0x2500), chr(0x2500), chr(0x2500), chr(0x2518)]
+            ]
+        )
+        # waited at least 99 miliseconds
+        self.assertGreaterEqual(
+            time.time_ns() - start,
+            99_000_000
+        )
+
 
     def test_preframe(self):
         """clear"""
+        state = State(5, 5, 10, True)
+
+        state.window.addstr(1, 1, "abc")
+        self.assertListEqual(
+            window_to_list(state.window), #type: ignore
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", "a", "b", "c", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
+
+        state._preframe()
+        self.assertListEqual(
+            window_to_list(state.window), #type: ignore
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
 
 
     def test_postframe(self):
         """present, wait"""
+
+        state = State(5, 5, 10, True)
+
+        state.window.addstr(1, 1, "abc")
+        self.assertListEqual(
+            window_to_list(state.window), #type: ignore
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", "a", "b", "c", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
+
+        start = time.time_ns()
+        state._postframe()
+        self.assertListEqual(
+            window_to_list(state.window), #type: ignore
+            [
+                [" ", " ", " ", " ", " "],
+                [" ", "a", "b", "c", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "],
+                [" ", " ", " ", " ", " "]
+            ]
+        )
+        # waited at least 99 miliseconds
+        self.assertGreaterEqual(
+            time.time_ns() - start,
+            99_000_000
+        )

@@ -35,16 +35,13 @@ def timeout_wrapper(timeout_seconds: float):
         signal.signal(signal.SIGUSR1, old_handler)
 
 
-class MockWindow:
+class MockWindow: #pylint: disable=too-few-public-methods
     """Dirty subclass of curses.window. Normally, the class can't be subclassed."""
 
     def __init__(self, window) -> None:
         self.window = window
 
-        defined_funcs = [
-            name
-            for name in dir(self)
-        ]
+        defined_funcs = dir(self)
 
         # pass all non-protected, non-dunder methods (except getch)
         # through as attributes of this class.
@@ -61,7 +58,7 @@ class MockWindow:
 
 def window_to_list(window: curses.window, no_chr: bool = False) -> list[list[str | int]]:
     """Convert the window object to a list of lists of strings"""
-    BORDER_CHR_MAP = {
+    border_chr_map = {
         curses.ACS_VLINE: 0x2502,
         curses.ACS_HLINE: 0x2500,
         curses.ACS_ULCORNER: 0x250C,
@@ -74,7 +71,7 @@ def window_to_list(window: curses.window, no_chr: bool = False) -> list[list[str
     if no_chr:
         return [
             [
-                BORDER_CHR_MAP.get(window.inch(y, x), window.inch(y, x))
+                border_chr_map.get(window.inch(y, x), window.inch(y, x))
                 for x in range(max_x)
             ]
             for y in range(max_y)
@@ -82,7 +79,7 @@ def window_to_list(window: curses.window, no_chr: bool = False) -> list[list[str
 
     return [
         [
-            chr(BORDER_CHR_MAP.get(window.inch(y, x), window.inch(y, x)))
+            chr(border_chr_map.get(window.inch(y, x), window.inch(y, x)))
             for x in range(max_x)
         ]
         for y in range(max_y)

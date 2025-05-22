@@ -67,6 +67,7 @@ class TestSegment(unittest.TestCase):
         pellet = Pellet(4, 1)
 
         self.assertEqual(segment, pellet)
+        self.assertEqual(pellet, segment)
         # these don't need to be the same
         self.assertNotEqual(segment.icon, pellet.icon)
 

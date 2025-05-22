@@ -1,8 +1,5 @@
 """Test the testing functions"""
 
-
-
-
 import curses
 import time
 import unittest
@@ -68,7 +65,7 @@ class TestWindowToList(unittest.TestCase):
 
 
     def test_no_chr(self):
-        """"""
+        """Test no conversion to character from integer"""
 
         window = curses.newwin(5, 5)
 
@@ -95,10 +92,11 @@ class TestMockWindow(unittest.TestCase):
     def test_mock_border(self):
         """Make a mockwindow subclass that replaces the border method"""
 
-        class MockWindowBorder(MockWindow):
+        class MockWindowBorder(MockWindow): #pylint: disable=too-few-public-methods
             """Replace the border method"""
 
             def border(self):
+                """Mocked border method"""
                 self.window.addch(0, 0, "0")
                 self.window.addch(0, 4, "0")
                 self.window.addch(4, 0, "0")

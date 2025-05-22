@@ -43,11 +43,9 @@ class HighScore(State):
         self.save_dir = None
         """Resolved save directory path."""
         self._get_savedir()
-        self.high_score_file = "hiscore.txt"
-        """Name of the high score file inside the folder."""
         self.file_path = None
         """Resolved path to the high score file."""
-        self._get_file_path()
+        self._get_file_path("hiscore.txt")
         self._get_saved_scores()
 
         self.scores.append(score)
@@ -157,18 +155,18 @@ class HighScore(State):
         os.makedirs(self.save_dir, exist_ok=True)
 
 
-    def _get_file_path(self):
+    def _get_file_path(self, file_path: str):
         """Get the path of the file to save the high scores to, and create it
         if it doesn't exist.
         """
         if self.save_dir is None:
             return
 
-        self.file_path = f"{self.save_dir}/{self.high_score_file}"
+        self.file_path = f"{self.save_dir}/{file_path}"
 
         # touch the file if it doesn't exist
         if not os.path.isfile(self.file_path):
-            with open(self.file_path, "wt"):
+            with open(self.file_path, "wt", encoding="UTF-8"):
                 pass
 
 

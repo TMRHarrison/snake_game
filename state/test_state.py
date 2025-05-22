@@ -27,7 +27,8 @@ class Test(State):
         self.window.border()
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,
@@ -37,7 +38,8 @@ class Test(State):
         )
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,
@@ -47,7 +49,8 @@ class Test(State):
         )
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,

@@ -18,6 +18,13 @@ class Pellet:
         """Icon that is shown on the window"""
 
 
+    def __eq__(self, other) -> bool:
+        """Pellets can be equal to other pellets"""
+        if isinstance(other, Pellet):
+            return self.x_pos == other.x_pos and self.y_pos == other.y_pos
+        return super().__eq__(other)
+
+
     def draw(self, window: curses.window):
         """Draw the pellet to the specified window.
 

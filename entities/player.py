@@ -1,5 +1,4 @@
-
-
+"""Player object and Facing"""
 
 from collections import deque
 import curses
