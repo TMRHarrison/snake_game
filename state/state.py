@@ -146,7 +146,7 @@ class State:
 
         if self.no_delay:
             expected_frame = self.__last_frame + self.__frame_time
-            naptime = (expected_frame - time.time_ns()) // 1_000_000
+            naptime = (expected_frame - time.time_ns()) // 1_000_000 # ns to ms
             if naptime > 0:
                 curses.napms(naptime)
             self.__last_frame = time.time_ns()

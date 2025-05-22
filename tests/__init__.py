@@ -59,12 +59,30 @@ class MockWindow:
         return False
 
 
-def window_to_list(window: curses.window) -> list[list[str]]:
+def window_to_list(window: curses.window, no_chr: bool = False) -> list[list[str | int]]:
     """Convert the window object to a list of lists of strings"""
+    BORDER_CHR_MAP = {
+        curses.ACS_VLINE: 0x2502,
+        curses.ACS_HLINE: 0x2500,
+        curses.ACS_ULCORNER: 0x250C,
+        curses.ACS_URCORNER: 0x2510,
+        curses.ACS_LLCORNER: 0x2514,
+        curses.ACS_LRCORNER: 0x2518
+    }
+
     max_y, max_x = window.getmaxyx()
+    if no_chr:
+        return [
+            [
+                BORDER_CHR_MAP.get(window.inch(y, x), window.inch(y, x))
+                for x in range(max_x)
+            ]
+            for y in range(max_y)
+        ]
+
     return [
         [
-            chr(window.inch(y, x))
+            chr(BORDER_CHR_MAP.get(window.inch(y, x), window.inch(y, x)))
             for x in range(max_x)
         ]
         for y in range(max_y)

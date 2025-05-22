@@ -67,6 +67,23 @@ class TestWindowToList(unittest.TestCase):
         )
 
 
+    def test_no_chr(self):
+        """"""
+
+        window = curses.newwin(5, 5)
+
+        self.assertListEqual(
+            window_to_list(window, no_chr=True),
+            [
+                [32, 32, 32, 32, 32],
+                [32, 32, 32, 32, 32],
+                [32, 32, 32, 32, 32],
+                [32, 32, 32, 32, 32],
+                [32, 32, 32, 32, 32]
+            ]
+        )
+
+
 class TestMockWindow(unittest.TestCase):
     """Test replacing a function with a mock"""
 
