@@ -1,4 +1,4 @@
-""""""
+"""Test the base state"""
 
 import curses
 import time
@@ -9,7 +9,7 @@ from tests import MockWindow, timeout_wrapper, window_to_list
 
 
 class TestState(unittest.TestCase):
-    """"""
+    """Test state methods"""
 
     def test_state_creation(self):
         """Test basic attributes of the state"""

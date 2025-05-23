@@ -18,6 +18,11 @@ class Pellet:
         """Icon that is shown on the window"""
 
 
+    def __repr__(self):
+        """String representation of the pellet"""
+        return f"<Pellet: ({self.x_pos},{self.y_pos})>"
+
+
     def __eq__(self, other) -> bool:
         """Pellets can be equal to other pellets"""
         if isinstance(other, Pellet):

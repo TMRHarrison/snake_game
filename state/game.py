@@ -36,7 +36,7 @@ class Game(State):
         """Canvas the game field is rendered to."""
         self.windows.append(self.canvas)
 
-        self.player = Player(width // 2, height // 2, 5)
+        self.player = Player(width // 2, (height - self.header) // 2, 5)
         """Player object for the snake that moves around."""
         self.score = 0
         """Number of pellets that the player has picked up."""
@@ -57,6 +57,7 @@ class Game(State):
         """
         if key == ord("q"):
             self.end()
+            return
 
         if key == ord("p"):
             self.paused = not self.paused

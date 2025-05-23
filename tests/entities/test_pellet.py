@@ -20,6 +20,33 @@ class TestPellet(unittest.TestCase):
         self.assertEqual(pellet.icon, "N")
 
 
+    def test_string_representation(self):
+        """Test the string representation"""
+        pellet = Pellet(0, 0)
+
+        self.assertEqual(
+            repr(pellet),
+            "<Pellet: (0,0)>"
+        )
+
+
+    def test_equality(self):
+        """Check that pellets are equal to each other when appropriate"""
+
+        self.assertEqual(
+            Pellet(0, 0),
+            Pellet(0, 0)
+        )
+
+        self.assertNotEqual(
+            Pellet(1, 0),
+            Pellet(0, 0)
+        )
+        self.assertNotEqual(
+            Pellet(0, 0),
+            Pellet(0, 1)
+        )
+
 
 class TestCurses(unittest.TestCase):
     """Test curses-related functions"""
