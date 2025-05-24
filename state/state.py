@@ -1,4 +1,4 @@
-
+"""Base for different states the game can be in."""
 
 import curses
 import time
@@ -53,15 +53,14 @@ class State:
 
         self.done = False
 
+        # Render a frame before any inputs. Otherwise, delay mode won't render any frames
+        self._frame()
         while not self.done:
-            self._preframe()
-            self.draw()
-            self._postframe()
-
             self._scankeys()
             for key in self._keys_pressed:
                 self.key_pressed(key)
             self.update()
+            self._frame()
 
 
     def key_pressed(self, key: int):
@@ -123,6 +122,13 @@ class State:
             self._keys_pressed.append(ch)
 
 
+    def _frame(self):
+        """All the graphical updates"""
+        self._preframe()
+        self.draw()
+        self._postframe()
+
+
     def _preframe(self):
         """Clears the window buffers before the draw function is called."""
         for window in self.windows:
@@ -139,7 +145,7 @@ class State:
 
         if self.no_delay:
             expected_frame = self.__last_frame + self.__frame_time
-            naptime = (expected_frame - time.time_ns()) // 1_000_000
+            naptime = (expected_frame - time.time_ns()) // 1_000_000 # ns to ms
             if naptime > 0:
                 curses.napms(naptime)
             self.__last_frame = time.time_ns()

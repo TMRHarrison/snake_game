@@ -1,3 +1,5 @@
+"""Curses utility functions"""
+
 
 import curses
 from enum import StrEnum
@@ -13,17 +15,19 @@ class Alignment(StrEnum):
 
         :raise ValueError: Always.
         """
+        #pylint: disable=no-member
         raise ValueError(
             f"{value} is not a valid value for Alignment. Must be one of"\
             f"{cls._member_names_}"
         )
+        #pylint: enable=no-member
 
     LEFT = "left"
     CENTER = "center"
     RIGHT = "right"
 
 
-def printf(
+def printf( #pylint: disable=too-many-arguments,too-many-positional-arguments
     window: curses.window,
     string: str,
     x: int,

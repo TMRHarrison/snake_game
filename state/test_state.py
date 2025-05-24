@@ -14,8 +14,7 @@ class Test(State):
 
 
     def draw(self):
-        """Draw the outputs to the window(s). This default function should be
-        replaced in other states.
+        """Draw the outputs to the window(s).
         """
         # info
         if self.no_delay:
@@ -27,7 +26,8 @@ class Test(State):
         self.window.border()
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,
@@ -37,7 +37,8 @@ class Test(State):
         )
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,
@@ -47,7 +48,8 @@ class Test(State):
         )
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,

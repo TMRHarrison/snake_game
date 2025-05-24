@@ -2,8 +2,7 @@
 
 import curses
 import random
-from entities import Pellet
-from entities import Facing, Player
+from entities import Pellet, Facing, Player
 from state.state import State
 from utils.curses import printf
 
@@ -36,7 +35,7 @@ class Game(State):
         """Canvas the game field is rendered to."""
         self.windows.append(self.canvas)
 
-        self.player = Player(width // 2, height // 2, 5)
+        self.player = Player(width // 2, (height - self.header) // 2, 5)
         """Player object for the snake that moves around."""
         self.score = 0
         """Number of pellets that the player has picked up."""
@@ -57,6 +56,7 @@ class Game(State):
         """
         if key == ord("q"):
             self.end()
+            return
 
         if key == ord("p"):
             self.paused = not self.paused
@@ -65,7 +65,7 @@ class Game(State):
         if self.paused:
             return
 
-        elif key in [ord("a"), curses.KEY_LEFT]:
+        if key in [ord("a"), curses.KEY_LEFT]:
             self.player.add_facing_to_buffer(Facing.LEFT)
         elif key in [ord("d"), curses.KEY_RIGHT]:
             self.player.add_facing_to_buffer(Facing.RIGHT)
@@ -122,7 +122,7 @@ class Game(State):
         if self.paused:
             printf(
                 self.canvas,
-                f"~~PAUSED~~",
+                "~~PAUSED~~",
                 0,
                 (self.height - self.header) // 2,
                 self.width,
