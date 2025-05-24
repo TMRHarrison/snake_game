@@ -14,8 +14,7 @@ class Test(State):
 
 
     def draw(self):
-        """Draw the outputs to the window(s). This default function should be
-        replaced in other states.
+        """Draw the outputs to the window(s).
         """
         # info
         if self.no_delay:

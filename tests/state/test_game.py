@@ -13,6 +13,8 @@ from state.state import State
 from tests import window_to_list
 
 
+# we are deliberately accesssing protected members to test their functionality
+#pylint: disable=protected-access
 class TestGame(unittest.TestCase):
     """Test Game methods"""
 

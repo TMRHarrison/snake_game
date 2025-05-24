@@ -11,12 +11,16 @@ from entities.segment import Segment
 from tests import window_to_list
 
 
+# we are deliberately accesssing protected members to test their functionality
+#pylint: disable=protected-access
 class TestFacing(unittest.TestCase):
     """Test the Facing enum"""
 
     def test_facing_attributes(self):
         """Make sure the facing enum is constructed correctly"""
 
+        # These parameters exist In fact, this function confirms their existence.
+        #pylint: disable=no-value-for-parameter
         self.assertEqual(Facing("left"), Facing.LEFT)
         self.assertEqual(Facing.LEFT.x, -1)
         self.assertEqual(Facing.LEFT.y, 0)
@@ -32,6 +36,7 @@ class TestFacing(unittest.TestCase):
         self.assertEqual(Facing("down"), Facing.DOWN)
         self.assertEqual(Facing.DOWN.x, 0)
         self.assertEqual(Facing.DOWN.y, 1)
+        #pylint: enable=no-value-for-parameter
 
 
 class TestPlayer(unittest.TestCase):
@@ -277,6 +282,8 @@ class TestPlayer(unittest.TestCase):
         self.assertFalse(player.check_body_hit())
 
 
+# "duplicate" tests are deliberately similar
+#pylint: disable=duplicate-code
 class TestCurses(unittest.TestCase):
     """Test methods that use curses."""
 
@@ -315,3 +322,4 @@ class TestCurses(unittest.TestCase):
                 [" ", " ", " ", " ", " "]
             ]
         )
+#pylint: enable=duplicate-code

@@ -8,6 +8,8 @@ from state.state import State
 from tests import MockWindow, timeout_wrapper, window_to_list
 
 
+# we are deliberately accesssing protected members to test their functionality
+#pylint: disable=protected-access
 class TestState(unittest.TestCase):
     """Test state methods"""
 
@@ -32,7 +34,8 @@ class TestState(unittest.TestCase):
     def test_run(self):
         """Run the base state for 5 frames"""
 
-        class MockWindowGetch(MockWindow):
+        class MockWindowGetch(MockWindow): #pylint: disable=too-few-public-methods
+            """Mock a window object with getch's functionality changed."""
 
             def __init__(self, window):
                 super().__init__(window)
@@ -121,7 +124,8 @@ class TestState(unittest.TestCase):
     def test_scankeys_no_delay_state(self):
         """Scan keys on a state with no delay set"""
 
-        class MockWindowGetch(MockWindow):
+        class MockWindowGetch(MockWindow): #pylint: disable=too-few-public-methods
+            """Mock a window object with getch's functionality changed."""
 
             def __init__(self, window):
                 super().__init__(window)
@@ -158,7 +162,8 @@ class TestState(unittest.TestCase):
     def test_scankeys_delay_state(self):
         """Scan keys on a state with no delay unset"""
 
-        class MockWindowGetch(MockWindow):
+        class MockWindowGetch(MockWindow): #pylint: disable=too-few-public-methods
+            """Mock a window object with getch's functionality changed."""
 
             def __init__(self, window):
                 super().__init__(window)
@@ -201,7 +206,8 @@ class TestState(unittest.TestCase):
     def test_scankeys_no_delay(self):
         """Scan keys in the nodelay method"""
 
-        class MockWindowGetch(MockWindow):
+        class MockWindowGetch(MockWindow): #pylint: disable=too-few-public-methods
+            """Mock a window object with getch's functionality changed."""
 
             def __init__(self, window):
                 super().__init__(window)
@@ -237,7 +243,8 @@ class TestState(unittest.TestCase):
     def test_scankeys_with_delay(self):
         """Scan keys in the nodelay method"""
 
-        class MockWindowGetch(MockWindow):
+        class MockWindowGetch(MockWindow): #pylint: disable=too-few-public-methods
+            """Mock a window object with getch's functionality changed."""
 
             def __init__(self, window):
                 super().__init__(window)

@@ -115,8 +115,7 @@ def main():
     try:
         curses.wrapper(
             run,
-            *args._get_args(),
-            **dict(args._get_kwargs())
+            **vars(args)
         )
     except WindowSizeError as err:
         print(err)

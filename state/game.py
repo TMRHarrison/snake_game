@@ -2,8 +2,7 @@
 
 import curses
 import random
-from entities import Pellet
-from entities import Facing, Player
+from entities import Pellet, Facing, Player
 from state.state import State
 from utils.curses import printf
 
