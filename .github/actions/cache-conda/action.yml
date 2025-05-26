@@ -9,10 +9,6 @@ inputs:
 runs:
   using: "composite"
 
-  defaults:
-    run:
-      shell: bash -el {0}
-
   steps:
     - name: Cache conda
       uses: actions/cache@v3
@@ -34,6 +30,8 @@ runs:
     - name: Update conda env to latest version(s)
       if: ${{ inputs.python-ver == 'latest' }}
       run: conda update --all
+      shell: bash -el {0}
 
     - name: List conda versions
       run: conda list
+      shell: bash -el {0}
