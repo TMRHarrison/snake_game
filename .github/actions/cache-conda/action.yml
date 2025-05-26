@@ -28,9 +28,13 @@ runs:
 
     - name: Update conda env to latest version(s)
       if: ${{ inputs.python-ver == 'latest' }}
-      run: conda update --all
       shell: bash -el {0}
+      run: conda update --all
 
     - name: List conda versions
-      run: conda list
       shell: bash -el {0}
+      run: |
+        conda --version
+        conda list
+        conda search python
+        conda search conda-forge::python
