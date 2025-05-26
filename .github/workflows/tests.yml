@@ -63,8 +63,8 @@ jobs:
           echo $TERM
           echo $TERMINFO
           ls /etc/terminfo
-          ls /lib/terminfo
           ls /usr/share/terminfo
+          TERM=xterm-256color
           script -q -e -a -c "pytest --cov --cov-report xml"
 
       - name: Upload coverage reports to Codecov
@@ -82,17 +82,23 @@ jobs:
       run:
         shell: bash -el {0}
 
+    strategy:
+      fail-fast: false
+      matrix:
+        python-ver:
+          - "3.11"
+          - "latest"
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Cache conda
         uses: ./.github/actions/cache-conda
         with:
-          python-ver: latest
+          python-ver: ${{ matrix.python-ver }}
 
       - name: Install pylint
-        run: |
-          pip install pylint
+        run: pip install pylint
 
       - name: Pylint
         run: pylint ./**/*.py
