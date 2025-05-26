@@ -43,7 +43,6 @@ class TestSegment(unittest.TestCase):
         )
 
 
-
     def test_equality_segments(self):
         """Check that the segment is equal to a segment at the same place"""
 
@@ -70,6 +69,18 @@ class TestSegment(unittest.TestCase):
         self.assertEqual(pellet, segment)
         # these don't need to be the same
         self.assertNotEqual(segment.icon, pellet.icon)
+
+
+    def test_equality_other(self):
+        """Check that the segment is not equal to other objects"""
+
+        random.seed(1)
+
+        segment = Segment(4, 1)
+
+        self.assertNotEqual(segment, (4, 1))
+        self.assertNotEqual(segment, "")
+        self.assertNotEqual(segment, 3)
 
 
     def test_move(self):
