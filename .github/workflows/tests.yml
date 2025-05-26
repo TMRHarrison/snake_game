@@ -64,8 +64,8 @@ jobs:
           echo $TERMINFO
           ls /etc/terminfo
           ls /usr/share/terminfo
-          TERM=xterm-256color
-          TERMINFO=/usr/share/terminfo
+          export TERM=xterm-256color
+          export TERMINFO=/usr/share/terminfo
           script -q -e -a -c "pytest --cov --cov-report xml"
 
       - name: Upload coverage reports to Codecov
