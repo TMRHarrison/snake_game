@@ -32,11 +32,14 @@ jobs:
           key:
             ${{ runner.os }}-conda-${{ matrix.python-ver }}-${{ hashFiles('./environment.yml') }}
 
+      - run: |
+          echo ${{ matrix.python-ver == 'latest' && null || matrix.python-ver }}
+
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           channel-priority: strict
-          python-version: ${{ contains(matrix.python-ver, 'latest') && null || matrix.python-ver }}
+          python-version: null
           environment-file: ./environment.yml
           use-only-tar-bz2: true
 
