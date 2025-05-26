@@ -22,7 +22,6 @@ runs:
         auto-update-conda: true
         channels: conda-forge
         conda-remove-defaults: "true"
-        channel-priority: strict
         python-version: ${{ inputs.python-ver != 'latest' && inputs.python-ver || null }}
         environment-file: ./environment.yml
         use-only-tar-bz2: true
