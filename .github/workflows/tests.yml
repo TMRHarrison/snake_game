@@ -60,12 +60,11 @@ jobs:
 
       - name: Pytest
         run: |
-          ls ${HOME}/.terminfo
+          echo $TERM
+          echo $TERMINFO
           ls /etc/terminfo
           ls /lib/terminfo
           ls /usr/share/terminfo
-          echo $TERM
-          echo $TERMINFO
           script -q -e -a -c "pytest --cov --cov-report xml"
 
       - name: Upload coverage reports to Codecov
@@ -93,7 +92,7 @@ jobs:
 
       - name: Install pylint
         run: |
-          conda install "conda-forge::pylint>=3"
+          pip install pylint
 
       - name: Pylint
         run: pylint ./**/*.py
