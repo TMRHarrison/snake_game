@@ -24,13 +24,9 @@ runs:
         conda-remove-defaults: "true"
         python-version: ${{ inputs.python-ver != 'latest' && inputs.python-ver || null }}
         environment-file: ./environment.yml
-        # disabled to see if conda forge packages are more available
-        #use-only-tar-bz2: true
 
     - name: List conda versions
       shell: bash -el {0}
       run: |
         conda --version
         conda list
-        conda search python
-        conda search conda-forge::python
