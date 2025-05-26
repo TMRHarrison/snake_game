@@ -97,3 +97,9 @@ jobs:
           channel-priority: strict
           environment-file: ./environment.yml
           use-only-tar-bz2: true
+
+      - name: Install pylint
+        run: conda install pylint
+
+      - name: Pylint
+        run: pylint ./**/*.py
