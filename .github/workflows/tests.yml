@@ -30,7 +30,7 @@ jobs:
         with:
           auto-update-conda: true
           channel-priority: strict
-          environment-file: etc/example-environment.yml
+          environment-file: ./environment.yml
           use-only-tar-bz2: true
 
 
@@ -95,5 +95,5 @@ jobs:
         with:
           auto-update-conda: true
           channel-priority: strict
-          environment-file: etc/example-environment.yml
+          environment-file: ./environment.yml
           use-only-tar-bz2: true
