@@ -32,21 +32,17 @@ jobs:
           key:
             ${{ runner.os }}-conda-${{ matrix.python-ver }}-${{ hashFiles('./environment.yml') }}
 
-      - run: |
-          echo ${{ (matrix.python-ver == 'latest' && null) || matrix.python-ver }}
-          echo ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
-          echo ${{ matrix.python-ver == 'latest' }}
-          echo ${{ contains(matrix.python-ver, 'latest') }}
-          echo ${{ matrix.python-ver }}
-
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           channel-priority: strict
-          python-version: null
+          python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
           environment-file: ./environment.yml
           use-only-tar-bz2: true
 
+      - name: Update conda env to latest version(s)
+        if: ${{ matrix.python-ver == 'latest' }}
+        run: conda update --all
 
   pytest:
     needs: build_env
@@ -76,7 +72,7 @@ jobs:
         with:
           auto-update-conda: true
           channel-priority: strict
-          python-version: ${{ matrix.python-ver == 'latest' && '' || matrix.python-ver }}
+          python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
           environment-file: ./environment.yml
           use-only-tar-bz2: true
 
@@ -121,7 +117,7 @@ jobs:
         with:
           auto-update-conda: true
           channel-priority: strict
-          python-version: ${{ matrix.python-ver == 'latest' && '' || matrix.python-ver }}
+          python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
           environment-file: ./environment.yml
           use-only-tar-bz2: true
 
