@@ -34,6 +34,9 @@ jobs:
 
       - run: |
           echo ${{ matrix.python-ver == 'latest' && null || matrix.python-ver }}
+          echo ${{ matrix.python-ver == 'latest' }}
+          echo ${{ contains(matrix.python-ver, 'latest') }}
+          echo ${{ matrix.python-ver }}
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
