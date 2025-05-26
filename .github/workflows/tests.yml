@@ -35,6 +35,8 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
+          channels: conda-forge
+          conda-remove-defaults: "true"
           channel-priority: strict
           python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
           environment-file: ./environment.yml
@@ -43,6 +45,9 @@ jobs:
       - name: Update conda env to latest version(s)
         if: ${{ matrix.python-ver == 'latest' }}
         run: conda update --all
+
+      - name: List conda versions
+        run: conda list
 
   pytest:
     needs: build_env
@@ -71,6 +76,8 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
+          channels: conda-forge
+          conda-remove-defaults: "true"
           channel-priority: strict
           python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
           environment-file: ./environment.yml
@@ -116,6 +123,8 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
+          channels: conda-forge
+          conda-remove-defaults: "true"
           channel-priority: strict
           python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
           environment-file: ./environment.yml
