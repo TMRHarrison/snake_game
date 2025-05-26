@@ -57,7 +57,7 @@ jobs:
           conda install conda-forge::pytest conda-forge::pytest-cov
 
       - name: Pytest
-        run: pytest --cov --cov-report xml
+        run: bash -ic "pytest --cov --cov-report xml"
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
