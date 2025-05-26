@@ -26,25 +26,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Cache conda
-        uses: actions/cache@v3
+        uses: ./.github/actions/cache-conda
         with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ runner.os }}-conda-${{ matrix.python-ver }}-${{ hashFiles('./environment.yml') }}
-
-      - uses: conda-incubator/setup-miniconda@v3
-        with:
-          auto-update-conda: true
-          channels: conda-forge
-          conda-remove-defaults: "true"
-          channel-priority: strict
-          python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
-          environment-file: ./environment.yml
-          use-only-tar-bz2: true
-
-      - name: Update conda env to latest version(s)
-        if: ${{ matrix.python-ver == 'latest' }}
-        run: conda update --all
+          python-ver: ${{ matrix.python-ver }}
 
       - name: List conda versions
         run: conda list
@@ -67,21 +51,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Cache conda
-        uses: actions/cache@v3
+        uses: ./.github/actions/cache-conda
         with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ runner.os }}-conda-${{ matrix.python-ver }}-${{ hashFiles('./environment.yml') }}
-
-      - uses: conda-incubator/setup-miniconda@v3
-        with:
-          auto-update-conda: true
-          channels: conda-forge
-          conda-remove-defaults: "true"
-          channel-priority: strict
-          python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
-          environment-file: ./environment.yml
-          use-only-tar-bz2: true
+          python-ver: ${{ matrix.python-ver }}
 
       - name: Install pytest/coverage
         run: |
@@ -114,21 +86,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Cache conda
-        uses: actions/cache@v3
+        uses: ./.github/actions/cache-conda
         with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ runner.os }}-conda-${{ matrix.python-ver }}-${{ hashFiles('./environment.yml') }}
-
-      - uses: conda-incubator/setup-miniconda@v3
-        with:
-          auto-update-conda: true
-          channels: conda-forge
-          conda-remove-defaults: "true"
-          channel-priority: strict
-          python-version: ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
-          environment-file: ./environment.yml
-          use-only-tar-bz2: true
+          python-ver: ${{ matrix.python-ver }}
 
       - name: Install pylint
         run: conda install pylint
