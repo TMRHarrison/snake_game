@@ -34,6 +34,7 @@ jobs:
 
       - run: |
           echo ${{ (matrix.python-ver == 'latest' && null) || matrix.python-ver }}
+          echo ${{ matrix.python-ver != 'latest' && matrix.python-ver || null }}
           echo ${{ matrix.python-ver == 'latest' }}
           echo ${{ contains(matrix.python-ver, 'latest') }}
           echo ${{ matrix.python-ver }}
