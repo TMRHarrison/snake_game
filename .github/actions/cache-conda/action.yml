@@ -1,0 +1,32 @@
+name: 'Set up conda'
+description: 'Set up and cache conda environment'
+inputs:
+  python-ver:
+    description: 'python version to use. Setting to "latest" will use the latest version'
+    required: true
+    default: null
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Cache conda
+      uses: actions/cache@v3
+      with:
+        path: ~/conda_pkgs_dir
+        key:
+          ${{ runner.os }}-conda-${{ inputs.python-ver }}-${{ hashFiles('./environment.yml') }}
+
+    - uses: conda-incubator/setup-miniconda@v3
+      with:
+        auto-update-conda: true
+        channels: conda-forge
+        conda-remove-defaults: "true"
+        python-version: ${{ inputs.python-ver != 'latest' && inputs.python-ver || null }}
+        environment-file: ./environment.yml
+
+    - name: List conda versions
+      shell: bash -el {0}
+      run: |
+        conda --version
+        conda list
