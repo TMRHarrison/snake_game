@@ -89,8 +89,7 @@ jobs:
 
       - name: Install pylint
         run: |
-          conda install pylint
-          conda update --all
+          conda install pylint>=3
 
       - name: Pylint
         run: pylint ./**/*.py
