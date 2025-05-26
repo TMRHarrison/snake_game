@@ -29,7 +29,8 @@ runs:
     - name: Update conda env to latest version(s)
       if: ${{ inputs.python-ver == 'latest' }}
       shell: bash -el {0}
-      run: conda update --all
+      run: |
+        conda install "conda-forge::python>=3.13"
 
     - name: List conda versions
       shell: bash -el {0}
