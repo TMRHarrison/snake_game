@@ -16,6 +16,7 @@ jobs:
         shell: bash -el {0}
 
     strategy:
+      fail-fast: false
       matrix:
         python-ver:
           - "3.11"
@@ -39,6 +40,7 @@ jobs:
         shell: bash -el {0}
 
     strategy:
+      fail-fast: false
       matrix:
         python-ver:
           - "3.11"
@@ -74,22 +76,17 @@ jobs:
       run:
         shell: bash -el {0}
 
-    strategy:
-      matrix:
-        python-ver:
-          - "latest"
-
     steps:
       - uses: actions/checkout@v4
 
       - name: Cache conda
         uses: ./.github/actions/cache-conda
         with:
-          python-ver: ${{ matrix.python-ver }}
+          python-ver: latest
 
       - name: Install pylint
         run: |
-          conda install "pylint>=3"
+          conda install "conda-forge::pylint>=3"
 
       - name: Pylint
         run: pylint ./**/*.py
