@@ -33,7 +33,7 @@ jobs:
             ${{ runner.os }}-conda-${{ matrix.python-ver }}-${{ hashFiles('./environment.yml') }}
 
       - run: |
-          echo ${{ matrix.python-ver == 'latest' && null || matrix.python-ver }}
+          echo ${{ (matrix.python-ver == 'latest' && null) || matrix.python-ver }}
           echo ${{ matrix.python-ver == 'latest' }}
           echo ${{ contains(matrix.python-ver, 'latest') }}
           echo ${{ matrix.python-ver }}
