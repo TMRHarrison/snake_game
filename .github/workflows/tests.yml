@@ -24,7 +24,7 @@ jobs:
         with:
           path: ~/conda_pkgs_dir
           key:
-            ${{ runner.os }}-conda-${{ hashFiles('etc/example-environment.yml') }}
+            ${{ runner.os }}-conda-${{ hashFiles('./environment.yml') }}
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
@@ -50,7 +50,7 @@ jobs:
         with:
           path: ~/conda_pkgs_dir
           key:
-            ${{ runner.os }}-conda-${{ hashFiles('etc/example-environment.yml') }}
+            ${{ runner.os }}-conda-${{ hashFiles('./environment.yml') }}
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
@@ -89,7 +89,7 @@ jobs:
         with:
           path: ~/conda_pkgs_dir
           key:
-            ${{ runner.os }}-conda-${{ hashFiles('etc/example-environment.yml') }}
+            ${{ runner.os }}-conda-${{ hashFiles('./environment.yml') }}
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
