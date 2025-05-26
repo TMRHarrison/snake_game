@@ -59,7 +59,14 @@ jobs:
           conda install conda-forge::pytest conda-forge::pytest-cov
 
       - name: Pytest
-        run: script -q -c "pytest --cov --cov-report xml"
+        run: |
+          ls ${HOME}/.terminfo
+          ls /etc/terminfo
+          ls /lib/terminfo
+          ls /usr/share/terminfo
+          echo $TERM
+          echo $TERMINFO
+          script -q -e -a -c "pytest --cov --cov-report xml"
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
