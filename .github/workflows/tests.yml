@@ -7,6 +7,7 @@ on:
   pull_request:
 
 jobs:
+
   build_env:
     runs-on: ubuntu-latest
 
@@ -28,8 +29,6 @@ jobs:
         with:
           python-ver: ${{ matrix.python-ver }}
 
-      - name: List conda versions
-        run: conda list
 
   pytest:
     needs: build_env
@@ -89,7 +88,9 @@ jobs:
           python-ver: ${{ matrix.python-ver }}
 
       - name: Install pylint
-        run: conda install pylint
+        run: |
+          conda install pylint
+          conda update --all
 
       - name: Pylint
         run: pylint ./**/*.py
