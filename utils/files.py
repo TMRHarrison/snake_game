@@ -19,7 +19,7 @@ def get_savedir(dir_name: str) -> str | None:
         subdir = ".local/share"
     else:
         # If the operating system is unrecognised, don't set the save directory.
-        return
+        return None
 
     save_dir = f"{home}/{subdir}/{dir_name}"
     os.makedirs(save_dir, exist_ok=True)

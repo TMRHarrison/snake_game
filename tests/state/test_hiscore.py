@@ -8,6 +8,8 @@ from state.hiscore import HighScore
 from tests import window_to_list
 
 
+# we are deliberately accesssing protected members to test their functionality
+#pylint: disable=protected-access
 class TestHiscore(unittest.TestCase):
     """Test the high score state"""
 
