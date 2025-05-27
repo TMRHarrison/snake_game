@@ -180,7 +180,7 @@ class TestHiscore(unittest.TestCase):
         hiscore._save_scores()
 
 
-    def _get_file_path_valid_dir(self):
+    def test_get_file_path_valid_dir(self):
         """Get the file path when there's a valid save directory"""
 
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -210,7 +210,7 @@ class TestHiscore(unittest.TestCase):
                 self.assertEqual(stream.readlines(), ["10\n", "5\n"])
 
 
-    def _get_file_path_invalid_dir(self):
+    def test_get_file_path_invalid_dir(self):
         """Don't change the file path if there's no valid save directory"""
 
         hiscore = HighScore(40, 10, 15, None)
