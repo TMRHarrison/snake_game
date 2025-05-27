@@ -66,6 +66,7 @@ jobs:
           pytest --cov --cov-report xml
 
       - name: Upload coverage reports to Codecov
+        if: ${{ matrix.python-ver == 'latest' }}
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
