@@ -3,8 +3,6 @@ historic high scores.
 """
 
 import os
-import pathlib
-import sys
 from state.state import State
 from utils.curses import printf
 
@@ -24,15 +22,13 @@ class HighScore(State):
         width: int,
         height: int,
         score: int,
-        dir_name: str
+        save_dir: str | None
     ):
         super().__init__(width, height, no_delay=False)
 
         self.replay = False
         """True when the game should restart after this screen."""
 
-        self.dir_name = dir_name
-        """Name of the directory to save the high score file to."""
         self.score = score
         """The score from the previous game."""
         self.scores = []
@@ -40,9 +36,8 @@ class HighScore(State):
         self.max_highscores = 10
         """The maximum number of high scores to show and save."""
 
-        self.save_dir = None
+        self.save_dir = save_dir
         """Resolved save directory path."""
-        self._get_savedir()
         self.file_path = None
         """Resolved path to the high score file."""
         self._get_file_path("hiscore.txt")
@@ -59,7 +54,8 @@ class HighScore(State):
 
         :param key: the pressed key.
         """
-        super().key_pressed(key)
+        if key == ord("q"):
+            self.end()
 
         if key == ord(" "):
             self.replay = True
@@ -135,26 +131,6 @@ class HighScore(State):
             )
 
 
-    def _get_savedir(self):
-        """Get the system-dependent save folder. If the operating system is
-        unrecognised, don't try to do any file operations.
-        """
-        home = pathlib.Path.home()
-
-        if sys.platform == "win32":
-            subdir = "AppData/Roaming"
-        elif sys.platform == "darwin":
-            subdir = "Library/Application Support"
-        elif sys.platform == "linux":
-            subdir = ".local/share"
-        else:
-            # If the operating system is unrecognised, don't set the save directory.
-            return
-
-        self.save_dir = f"{home}/{subdir}/{self.dir_name}"
-        os.makedirs(self.save_dir, exist_ok=True)
-
-
     def _get_file_path(self, file_path: str):
         """Get the path of the file to save the high scores to, and create it
         if it doesn't exist.
@@ -166,6 +142,7 @@ class HighScore(State):
 
         # touch the file if it doesn't exist
         if not os.path.isfile(self.file_path):
+            os.makedirs(self.save_dir, exist_ok=True)
             with open(self.file_path, "wt", encoding="UTF-8"):
                 pass
 
