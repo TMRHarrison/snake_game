@@ -50,12 +50,6 @@ class MockWindow: #pylint: disable=too-few-public-methods
                 setattr(self, attr, getattr(window, attr))
 
 
-    def __instancecheck__(self, instance) -> bool:
-        if instance == curses.window:
-            return True
-        return False
-
-
 def window_to_list(window: curses.window, no_chr: bool = False) -> list[list[str | int]]:
     """Convert the window object to a list of lists of strings"""
     border_chr_map = {
