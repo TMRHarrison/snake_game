@@ -130,3 +130,14 @@ class TestMockWindow(unittest.TestCase):
                 ["0", " ", " ", " ", "0"]
             ]
         )
+
+
+    def test_mock_window(self):
+        """Check that the mock window is counted as a window"""
+
+        window = MockWindow(curses.newwin(10, 10))
+
+        # This counts as a window
+        self.assertTrue(isinstance(window, curses.window))
+        # It's not a string, etc.
+        self.assertFalse(isinstance(window, str))
