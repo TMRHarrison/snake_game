@@ -13,6 +13,10 @@ from tests import MockWindow, timeout_wrapper, window_to_list
 class TestState(unittest.TestCase):
     """Test state methods"""
 
+    def setUp(self):
+        curses.initscr()
+
+
     def test_state_creation(self):
         """Test basic attributes of the state"""
 

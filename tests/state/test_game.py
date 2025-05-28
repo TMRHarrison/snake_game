@@ -18,6 +18,10 @@ from tests import window_to_list
 class TestGame(unittest.TestCase):
     """Test Game methods"""
 
+    def setUp(self):
+        curses.initscr()
+
+
     def test_creation(self):
         """Create the object and check its properties"""
         game = Game(5, 5, 10)

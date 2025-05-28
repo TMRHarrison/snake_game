@@ -1,5 +1,6 @@
 """Test the highscore state"""
 
+import curses
 import os
 import tempfile
 import unittest
@@ -12,6 +13,10 @@ from tests import window_to_list
 #pylint: disable=protected-access
 class TestHiscore(unittest.TestCase):
     """Test the high score state"""
+
+    def setUp(self):
+        curses.initscr()
+
 
     def test_creation_valid_dir(self):
         """make a high score state and check its attributes"""

@@ -17,12 +17,10 @@ class Alignment(StrEnum):
 
         :raise ValueError: Always.
         """
-        #pylint: disable=no-member
         raise ValueError(
-            f"{value} is not a valid value for Alignment. Must be one of"\
-            f"{cls._member_names_}"
+            f"{value} is not a valid value for Alignment. Must be one of "\
+            f"{cls.__members__}"
         )
-        #pylint: enable=no-member
 
     LEFT = "left"
     CENTER = "center"
@@ -80,19 +78,15 @@ def printf( #pylint: disable=too-many-arguments,too-many-positional-arguments
             pass
 
 
-def setup_curses():
-    """Set up the colours and cursor visibility."""
-    curses.curs_set(0)
-    curses.start_color()
-    curses.use_default_colors()
+def get_old_cursor_visibility(_ = None) -> int:
+    """get the current cursor visibility state. Curses doesn't let you query
+    this directly.
 
-
-def unset_curses(old_cursor: int):
-    """Set the cursor visibility back to the previous state.
-
-    :param old_cursor: The old state of the cursor's visibility.
+    :return: The old visibility state (0, 1, or 2)
     """
+    old_cursor = curses.curs_set(0)
     curses.curs_set(old_cursor)
+    return old_cursor
 
 
 def check_boundaries(window: curses.window, height: int, width: int):
@@ -110,13 +104,3 @@ def check_boundaries(window: curses.window, height: int, width: int):
             "Window dimensions are too small. Must be at least "
             f"{width} wide by {height} high"
         )
-
-
-def resize(window: curses.window, height: int, width: int):
-    """Custom resize function to lock the window dimensions properly.
-
-    :param window: Base curses window.
-    :param height: Height of the window.
-    :param width: Width of the window.
-    """
-    window.resize(height, width)

@@ -4,11 +4,15 @@
 import curses
 import argparse
 import signal
+import sys
 
 from state import Game
-from state import Test
+from state import StateTest
 from state.hiscore import HighScore
-from utils.curses import check_boundaries, resize, setup_curses, unset_curses
+from utils.curses import (
+    check_boundaries,
+    get_old_cursor_visibility
+)
 from utils.errors import WindowSizeError
 from utils.files import get_savedir
 
@@ -31,17 +35,22 @@ def run(
     :param height: Height of the game window.
     :param test: Whether or not to launch the test state.
     """
-    setup_curses()
     check_boundaries(window, height, width)
-    signal.signal(
-        signal.SIGWINCH,
-        lambda *_: resize(window, height, width)
-    )
+
+    curses.curs_set(0)
+    curses.start_color()
+    curses.use_default_colors()
+
+    if sys.platform != "win32":
+        signal.signal(
+            signal.SIGWINCH,
+            lambda *_: window.resize(height, width)
+        )
 
     # run the tests and immediately quit
     if test:
-        Test(width, height, fps=10).run()
-        Test(width, height, no_delay=False).run()
+        StateTest(width, height, fps=10).run()
+        StateTest(width, height, no_delay=False).run()
         return
 
     replay = True
@@ -62,10 +71,7 @@ def run(
 def main():
     """Main command line entrypoint"""
     # capture and save the default cursor visibility
-    curses.initscr()
-    old_cursor = curses.curs_set(0)
-    curses.curs_set(old_cursor)
-    curses.endwin()
+    old_cursor = curses.wrapper(get_old_cursor_visibility)
 
     # command line options
     parser = argparse.ArgumentParser("Snake game.")
@@ -80,7 +86,7 @@ def main():
     except WindowSizeError as err:
         print(err)
     finally:
-        unset_curses(old_cursor)
+        curses.curs_set(old_cursor)
 
 
 if __name__ == "__main__":

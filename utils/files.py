@@ -1,6 +1,5 @@
 """File and directory manipulation"""
 
-import os
 import sys
 import pathlib
 
@@ -22,5 +21,4 @@ def get_savedir(dir_name: str) -> str | None:
         return None
 
     save_dir = f"{home}/{subdir}/{dir_name}"
-    os.makedirs(save_dir, exist_ok=True)
     return save_dir
