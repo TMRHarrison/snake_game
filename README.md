@@ -14,7 +14,7 @@ Collect as many `N`s as possible without hitting the walls or your own tail. Eac
 
 ## Controls
 
-### In=game
+### In-game
 
 * *WASD and arrow keys*: Turn the snake
 
