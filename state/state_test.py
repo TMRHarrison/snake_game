@@ -1,10 +1,10 @@
-"""State which tests some functionality"""
+"""State which tests the key press and draw functionality."""
 
 
 from state.state import State
 from utils.curses import printf
 
-class Test(State):
+class StateTest(State):
     """Test drawing functions and show inputs."""
 
     def key_pressed(self, key: int):
@@ -14,9 +14,7 @@ class Test(State):
 
 
     def draw(self):
-        """Draw the outputs to the window(s). This default function should be
-        replaced in other states.
-        """
+        """Draw the outputs to the window(s)."""
         # info
         if self.no_delay:
             self.window.addstr(3, 3, "Testing no-delay mode. Press 'q' to move to next test.")
@@ -27,31 +25,34 @@ class Test(State):
         self.window.border()
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,
-            10,
+            7,
             80,
             "left"
         )
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,
-            15,
+            11,
             80,
             "center"
         )
         printf(
             self.window,
-            "Extremely long test string that should go off both sides of the screen. Really really long, probably 100 characters.\n"\
+            "Extremely long test string that should go off both sides of the "\
+                "screen. Really really long, probably 100 characters.\n"\
                 "A newline that should be fine.\n"\
                 "Another",
             0,
-            22,
+            15,
             80,
             "right"
         )
